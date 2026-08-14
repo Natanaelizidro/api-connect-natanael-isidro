@@ -1,41 +1,47 @@
-PI Connect
+API Connect
 Objetivo
 
-A API Connect é uma API REST desenvolvida como MVP para realizar o cadastro e consulta de usuários. Os dados são armazenados temporariamente em memória durante a execução do servidor.
+A API Connect é uma API REST desenvolvida como MVP para cadastro, consulta, atualização e exclusão de usuários. Os dados são armazenados temporariamente em memória.
 
-Tecnologias utilizadas
+Tecnologias
 Node.js
 Express
 JavaScript
 JSON
 Git e GitHub
-Como executar o projeto
+Execução
 
 Instale as dependências:
 
 npm install
 
-Depois execute o servidor:
+Execute o servidor:
 
 node server.js
 
-O servidor será executado na porta 3000.
+O servidor utiliza a porta 3000.
 
 Endpoints
-Método	Endpoint	Descrição	Status
-POST	/api/usuarios	Cria um usuário	201 / 400
-GET	/api/usuarios	Lista os usuários	200
-GET	/api/usuarios/:id	Busca usuário por ID	200 / 404
+Método	Endpoint	Função	Status
+POST	/api/usuarios	Criar usuário	201 / 400
+GET	/api/usuarios	Listar usuários	200
+GET	/api/usuarios/:id	Buscar usuário	200 / 404
+PUT	/api/usuarios/:id	Atualizar usuário	200 / 400 / 404
+DELETE	/api/usuarios/:id	Excluir usuário	204 / 404
 Exemplo de cadastro
 {
   "nome": "Carlos Oliveira",
   "email": "carlos@example.com"
 }
 Testes realizados
-POST com nome e e-mail válidos → 201 Created
+POST com dados válidos → 201 Created
 POST sem e-mail → 400 Bad Request
-GET para listar usuários → 200 OK
+GET de usuários → 200 OK
 GET com ID inexistente → 404 Not Found
 Persistência
 
-Os usuários são armazenados em memória durante a execução do servidor. Os dados são perdidos quando o servidor é encerrado.
+Os dados são armazenados em memória e são perdidos quando o servidor é encerrado.
+
+Autor
+
+Natanael Isidro
