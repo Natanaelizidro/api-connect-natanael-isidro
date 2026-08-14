@@ -1,0 +1,58 @@
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+const dados = {
+    usuarios: [],
+    proximoId: 1
+};
+
+app.post('/api/usuarios', (req, res) => {
+    const { nome, email } = req.body;
+
+    if (!nome || !email) {
+        return res.status(400).json({
+            error: "Nome e e-mail são obrigatórios."
+        });
+    }
+
+    const usuario = {
+        id: dados.proximoId++,
+        nome,
+        email
+    };
+
+    dados.usuarios.push(usuario);
+
+    return res.status(201).json({
+        data: usuario
+    });
+});
+
+app.get('/api/usuarios', (req, res) => {
+    return res.status(200).json({
+        data: dados.usuarios
+    });
+});
+
+app.get('/api/usuarios/:id', (req, res) => {
+    const id = Number(req.params.id);
+    const usuario = dados.usuarios.find(u => u.id === id);
+
+    if (!usuario) {
+        return res.status(404).json({
+            error: "Usuário não encontrado."
+        });
+    }
+
+    return res.status(200).json({
+        data: usuario
+    });
+});
+
+const PORT = 3000;
+
+app.listen(PORT, () => {
+    console.log(`Servidor rodando com sucesso na porta ${PORT}`);
+});
